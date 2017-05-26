@@ -49,6 +49,9 @@ namespace RxDotnet
 			// Wrap observable around (click) events:
 			// .....a......b....|
 			// Observable.FromEventPattern(searchTextbox, "TextChanged");
+
+			// Example FromAsync wrapper
+			// Observable.FromAsync(_ => ticketService.GetTickets());
 		}
 
 		[Fact]
