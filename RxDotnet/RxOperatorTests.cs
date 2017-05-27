@@ -16,5 +16,27 @@ namespace RxDotnet
 
 			await Task.Delay(5000);
 		}
+
+		[Fact]
+		public async Task DistinctOperatorTest()
+		{
+			var sequence = new[] {1, 2, 3, 4, 1};
+			var observable = sequence.ToObservable().Distinct();
+
+			observable.Subscribe(new LoggerObserver<int>());
+
+			await Task.Delay(5000);
+		}
+
+		[Fact]
+		public async Task DistinctUntilChangedOperatorTest()
+		{
+			var sequence = new[] { 1, 2, 2, 3, 4, 2 };
+			var observable = sequence.ToObservable().DistinctUntilChanged();
+
+			observable.Subscribe(new LoggerObserver<int>());
+
+			await Task.Delay(5000);
+		}
 	}
 }
