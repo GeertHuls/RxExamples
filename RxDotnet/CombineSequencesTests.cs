@@ -39,5 +39,22 @@ namespace RxDotnet
 
 			await Task.Delay(8000);
 		}
+
+		/// <summary>
+		/// Concat only works with finit observables.
+		/// </summary>
+		/// <returns></returns>
+		[Fact]
+		public async Task ConcatOperatorTests()
+		{
+			var observable1 = new[] { 1, 2, 3, 4, 5 }.ToObservable();
+			var observable2 = new[] { 1, 2, 3, 4, 5 }.ToObservable();
+
+			var observable = observable1.Concat(observable2);
+
+			observable.Subscribe(new LoggerObserver<int>());
+
+			await Task.Delay(5000);
+		}
 	}
 }
