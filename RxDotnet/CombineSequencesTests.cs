@@ -100,5 +100,18 @@ namespace RxDotnet
 
 			await Task.Delay(5000);
 		}
+
+		[Fact]
+		public async Task SwitchTests()
+		{
+			var observable1 = new[] { Observable.Range(1, 5), Observable.Range(5, 6) }
+				.ToObservable();
+
+			var observable = observable1.Switch();
+
+			observable.Subscribe(new LoggerObserver<int>());
+
+			await Task.Delay(5000);
+		}
 	}
 }
