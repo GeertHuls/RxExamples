@@ -67,7 +67,24 @@ namespace RxDotnet
 
 			observable.Subscribe(new LoggerObserver<string>());
 
-			await Task.Delay(50000);
+			await Task.Delay(5000);
+		}
+
+		/// <summary>
+		/// Zip will wait for both new values before zipping them together.
+		/// </summary>
+		/// <returns></returns>
+		[Fact]
+		public async Task ZipTests()
+		{
+			var observable1 = new[] { 1, 2, 3, 4, 5 }.ToObservable();
+			var observable2 = new[] { "1", "2", "3", "4", "5" }.ToObservable();
+
+			var observable = observable1.Zip(observable2, (x, y) => $"{x}-{y}");
+
+			observable.Subscribe(new LoggerObserver<string>());
+
+			await Task.Delay(5000);
 		}
 	}
 }
