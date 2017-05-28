@@ -56,5 +56,18 @@ namespace RxDotnet
 
 			await Task.Delay(5000);
 		}
+
+		[Fact]
+		public async Task CombineLatestTests()
+		{
+			var observable1 = new[] { 1, 2, 3, 4, 5 }.ToObservable();
+			var observable2 = new[] { "1", "2", "3", "4", "5" }.ToObservable();
+
+			var observable = observable1.CombineLatest(observable2, (x, y) => $"{x}-{y}");
+
+			observable.Subscribe(new LoggerObserver<string>());
+
+			await Task.Delay(50000);
+		}
 	}
 }
