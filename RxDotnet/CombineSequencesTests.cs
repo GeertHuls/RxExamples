@@ -86,5 +86,19 @@ namespace RxDotnet
 
 			await Task.Delay(5000);
 		}
+
+
+		[Fact]
+		public async Task SelectManyTests()
+		{
+			var observable1 = new[] { 1, 2, 3, 4, 5 }.ToObservable();
+			var observable2 = observable1.SelectMany((x, i) => Observable.Range(1, x));
+
+			var observable = observable1.Merge(observable2);
+
+			observable.Subscribe(new LoggerObserver<int>());
+
+			await Task.Delay(5000);
+		}
 	}
 }
